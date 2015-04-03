@@ -13,4 +13,6 @@ var App = Ember.Application.extend({
 
 loadInitializers(App, config.modulePrefix);
 
+console.log('atom', atom);
+
 export default App;

@@ -5,7 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'nova',
     environment: environment,
     baseURL: '/',
-    locationType: 'auto',
+    locationType: 'none',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -14,6 +14,7 @@ module.exports = function(environment) {
     },
 
     APP: {
+      rootElement: '#emberNova'
       // Here you can pass flags/options to your application instance
       // when it is created
     }

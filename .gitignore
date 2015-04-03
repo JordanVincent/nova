@@ -15,3 +15,7 @@
 /libpeerconnection.log
 npm-debug.log
 testem.log
+
+# atom package dependencies
+/atom/node_modules
+/atom/bower_components
