@@ -41,19 +41,33 @@ class NovaView
     metaTag.content = "%7B%22modulePrefix%22%3A%22nova%22%2C%22environment%22%3A%22development%22%2C%22baseURL%22%3A%22/%22%2C%22locationType%22%3A%22none%22%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%7D%2C%22APP%22%3A%7B%22name%22%3A%22nova%22%2C%22version%22%3A%220.0.0.a14f089b%22%7D%2C%22contentSecurityPolicyHeader%22%3A%22Content-Security-Policy-Report-Only%22%2C%22contentSecurityPolicy%22%3A%7B%22default-src%22%3A%22%27none%27%22%2C%22script-src%22%3A%22%27self%27%20%27unsafe-eval%27%22%2C%22font-src%22%3A%22%27self%27%22%2C%22connect-src%22%3A%22%27self%27%22%2C%22img-src%22%3A%22%27self%27%22%2C%22style-src%22%3A%22%27self%27%22%2C%22media-src%22%3A%22%27self%27%22%7D%2C%22exportApplicationGlobal%22%3Atrue%7D";
     document.getElementsByTagName('head')[0].appendChild(metaTag)
 
-    @loadScript '../../../../../../../home/jo/projects/nova/bower_components/jquery/dist/jquery.js', =>
-      @loadScript '../../../../../../../home/jo/projects/nova/dist/assets/vendor.js', =>
-        @loadScript '../../../../../../../home/jo/projects/nova/dist/assets/nova.js'
+    novaDirectoryPath = '../../../../../../../home/jo/projects/nova'
+    @loadScript "#{novaDirectoryPath}/bower_components/jquery/dist/jquery.js", =>
+      @loadScript "#{novaDirectoryPath}/dist/assets/vendor.js", =>
+        @loadScript "#{novaDirectoryPath}/dist/assets/nova.js", =>
+          @loadStyle "#{novaDirectoryPath}/dist/assets/vendor.css", =>
+            @loadStyle "#{novaDirectoryPath}/dist/assets/nova.css"
 
 
   loadScript: (src, callback) ->
-    r = false
-
     s = document.createElement('script')
     s.type = 'text/javascript'
     s.src = src
-    s.onload =
-    s.onreadystatechange = ->
+
+    @loadFile(s, callback)
+
+  loadStyle: (src, callback) ->
+    s = document.createElement('link')
+    s.type = 'text/css'
+    s.href = src
+    s.rel = 'stylesheet'
+
+    @loadFile(s, callback)
+
+  loadFile: (element, callback) ->
+    r = false
+    element.onload =
+    element.onreadystatechange = ->
       #console.log( this.readyState ); //uncomment this line to see which ready states are called.
       if !r and (!@readyState or @readyState == 'complete')
         r = true
@@ -61,4 +75,5 @@ class NovaView
           callback()
 
     t = document.getElementsByTagName('body')[0]
-    t.appendChild s
+    t.appendChild element
+
