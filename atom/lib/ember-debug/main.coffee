@@ -1,6 +1,7 @@
 AtomAdapter = require './adapters/atom'
 Port = require './port'
 RouteDebug = require './route-debug'
+GeneralDebug = require './general-debug'
 
 Ember = window.Ember
 
@@ -17,6 +18,7 @@ module.exports = EmberDebug = Ember.Object.extend
     @startModule('port', @Port)
 
     @startModule('route', RouteDebug)
+    @startModule('general', GeneralDebug)
 
   getApplication: ->
     Ember = @get('appWindow').Ember

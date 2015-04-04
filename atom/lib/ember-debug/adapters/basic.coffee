@@ -15,10 +15,6 @@ module.exports = Ember.Object.extend
     @get('_messageCallbacks').forEach (callback) ->
       callback.call null, message
 
-  _pendingMessages: computed(->
-    Ember.A()
-  ).property()
-
   _messageCallbacks: Ember.computed(->
     Ember.A()
   ).property()

@@ -10,6 +10,6 @@ Port = Ember.Object.extend Ember.Evented,
     message = message or {}
     message.type = type
     message.from = 'devtools'
-    @get('adapter').sendMessage message
+    @get('adapter').send message
 
 `export default Port;`

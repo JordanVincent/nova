@@ -9,6 +9,7 @@ module.exports = Ember.Object.extend Ember.Evented,
       @trigger message.type, message
 
   send: (messageType, options) ->
+    options = {} unless options
     options.type = messageType
     options.from = 'inspectedWindow'
     @get('adapter').send options
