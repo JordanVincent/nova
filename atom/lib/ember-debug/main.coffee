@@ -1,13 +1,22 @@
+AtomAdapter = require './adapters/atom'
+Port = require './port'
+RouteDebug = require './route-debug'
+
 Ember = window.Ember
 
 module.exports = EmberDebug = Ember.Object.extend
   application: null
   appWindow: null
 
-  start: (appWindow) ->
-    @set('appWindow', appWindow)
+  Port: Port
+  Adapter: AtomAdapter
+
+  start: ->
     @set('application', @getApplication()) unless @get('application')
-    @test()
+    @startModule('adapter', @Adapter)
+    @startModule('port', @Port)
+
+    @startModule('route', RouteDebug)
 
   getApplication: ->
     Ember = @get('appWindow').Ember
@@ -22,9 +31,5 @@ module.exports = EmberDebug = Ember.Object.extend
 
     application
 
-  test: ->
-    routerMain = @get('application').__container__.lookup('router:main')
-
-    routeNames = routerMain.get('router.recognizer.names')
-    aboutRoute = routerMain.get('router').getHandler('about')
-    console.log routeNames, aboutRoute
+  startModule: (prop, Module) ->
+    @set(prop, Module.create({ namespace: @ }))
