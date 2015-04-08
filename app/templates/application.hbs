@@ -1,6 +1,4 @@
-{{#each route in model}}
-  {{route-item route=route}}
-{{/each}}
+{{route-item-node routeNode=model}}
 
 <div class="block">
   <button class="btn" {{action 'fetch'}}>Fetch Routes</button>

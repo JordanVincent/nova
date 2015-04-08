@@ -1,0 +1,4 @@
+{{route-item route=routeNode.value}}
+{{#each childRouteNode in routeNode.children}}
+  {{route-item-node routeNode=childRouteNode}}
+{{/each}}

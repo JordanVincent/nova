@@ -3,18 +3,17 @@
 ApplicationRoute = Ember.Route.extend
 
   setupController: ->
-    @get('port').on('route:routes', @, @setRoutes)
-    @get('port').send('route:getRoutes')
+    @get('port').on('route:routeTree', @, @setRouteTree)
+    @get('port').send('route:getRouteTree')
 
   deactivate: ->
-    @get('port').off('route:routes')
+    @get('port').off('route:routeTree')
 
-  setRoutes: (options) ->
-    console.log 'yay', options
-    @set('controller.model', options.routes)
+  setRouteTree: (options) ->
+    @set('controller.model', options.routeTree)
 
   actions:
     fetch: ->
-      @get('port').send('route:getRoutes')
+      @get('port').send('route:getRouteTree')
 
 `export default ApplicationRoute`
